@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Poll Live Results</title>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Live Poll Results</h1>
+  <pre id="results"></pre>
+
+  <script>
+    const socket = io("http://localhost:4000");
+    const pollId = "221c0cdb-689e-4f55-830d-17f44bef18b6"; // replace with your actual pollId
+
+    socket.emit("joinPoll", { pollId });
+    
+    socket.on("pollUpdated", (data) => {
+      console.log("📊 pollUpdated received:", data);
+      document.getElementById("results").innerText = JSON.stringify(data, null, 2);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
